@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>meerverse: tools for people who have too much of everything</title>
+  <meta name="description" content="meerverse is the meer* family of open-source, self-hostable apps: meercal for calendars, meerail for mail, meerato for tasks and meerpic for photos, each keeping your data in PostgreSQL. meerink and meerpad are on the way." />
+  <meta name="theme-color" content="#2185d0" />
+  <link rel="canonical" href="https://meerverse.com/" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/brand-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/img/brand-64.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/brand-180.png" />
+
+  <!-- Link previews (chat apps, Mastodon, LinkedIn). -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="meerverse" />
+  <meta property="og:url" content="https://meerverse.com/" />
+  <meta property="og:title" content="meerverse: tools for people who have too much of everything" />
+  <meta property="og:description" content="Mail, calendar, tasks and photos from one family of open-source meerkats. Everything in PostgreSQL, everything on GitHub." />
+  <meta property="og:image" content="https://meerverse.com/img/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- For language models and other machine readers: the plain-text summary
+       (llmstxt.org) and the same facts as schema.org data. Keep both in step
+       with the page and with llms.txt, as on meerail.com. -->
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="meerverse in plain text, for LLMs" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "The meer* apps",
+    "url": "https://meerverse.com/",
+    "description": "A family of free, open-source (AGPL-3.0), self-hostable apps that keep your data in PostgreSQL.",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "meercal",
+          "url": "https://meercal.com/",
+          "description": "A self-hosted calendar client for people with many calendars: iCloud, CalDAV, Google and .ics feeds, with a continuous Ribbon view where long events are one unbroken bar.",
+          "applicationCategory": "BusinessApplication",
+          "isAccessibleForFree": true,
+          "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+          "sameAs": ["https://github.com/ribalba/meercal"]
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "meerail",
+          "url": "https://meerail.com/",
+          "description": "A self-hosted email client for power users: syncs any IMAP account, Proton Mail Bridge included, into PostgreSQL and searches all of it, attachment text included, with regular expressions.",
+          "applicationCategory": "CommunicationApplication",
+          "isAccessibleForFree": true,
+          "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+          "sameAs": ["https://github.com/ribalba/meerail"]
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "meerato",
+          "url": "https://meerato.com/",
+          "description": "A to-do app organised by the parts of your life: buckets, statuses instead of deadlines, shareable tasks and email watchers. Offline-capable, hosted or self-hosted.",
+          "applicationCategory": "BusinessApplication",
+          "isAccessibleForFree": true,
+          "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+          "sameAs": ["https://github.com/ribalba/meerato"]
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "meerpic",
+          "url": "https://meerpic.com/",
+          "description": "A self-hosted photo manager for large collections of many gigabytes and tens of thousands of files across any number of folders: sorted by capture time, on a map, every video playable in the browser, and searchable by what is in the picture with a model that runs locally. iCloud Photos sync is built in.",
+          "applicationCategory": "MultimediaApplication",
+          "isAccessibleForFree": true,
+          "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+          "sameAs": ["https://github.com/ribalba/meerpic"]
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Heavy stylesheet loaded non-render-blocking, as on the other meer* sites. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css" media="print" onload="this.media='all'" />
+  <link rel="stylesheet" href="/css/site.css" />
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css" />
+  </noscript>
+</head>
+<body>
+  <div class="landing">
+
+    <!-- Top bar -->
+    <header class="landing-nav" id="top">
+      <div class="landing-nav-inner">
+        <a class="landing-brand" href="/">
+          <img src="/img/brand.webp" width="128" height="128" alt="" />
+          <span>meerverse</span>
+        </a>
+        <nav class="landing-nav-links">
+          <a href="#apps">The apps</a>
+          <a href="#together">Together</a>
+          <a href="#soon">Coming soon</a>
+          <a class="ui small primary button" href="https://github.com/ribalba" target="_blank" rel="noopener">
+            <i class="github icon"></i> GitHub
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="landing-hero">
+      <img src="/img/family.webp" width="680" height="640" class="landing-logo is-family"
+           alt="Four cartoon meerkats: one peeking over a calendar, one over an envelope, one out of a picture frame and one over a checklist." />
+      <div class="landing-hero-copy">
+        <h1 class="landing-title">Tools for people who have too much of&nbsp;everything.</h1>
+        <p class="landing-subtitle">
+          Twenty calendars, a mailbox ten years deep, a to-do list for every part
+          of your life and a photo library too big for any photo app. The meer* apps
+          are a family of open-source programs, one for each of those, built for
+          the person the defaults stopped working for. Everything lands in
+          PostgreSQL, where you can query it. Each app stands on its own, and
+          together they know about each other.
+        </p>
+        <div class="landing-hero-actions">
+          <a class="ui primary button" href="#apps"><i class="paw icon"></i> Meet the apps</a>
+          <a class="ui basic button" href="#together"><i class="linkify icon"></i> How they fit together</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- The apps -->
+    <section id="apps" class="landing-features">
+      <h2 class="landing-section-title">The apps</h2>
+      <p class="landing-section-lede">
+        Four programs you can run today. Each has its own site and its own
+        repository, and all of them are open source under the AGPL.
+      </p>
+
+      <div class="landing-apps">
+        <article class="landing-card landing-app">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meercal.webp" width="155" height="192" alt="" />
+              <div>
+                <span class="landing-app-kind">Calendar</span>
+                <h3>meercal</h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">A calendar for people who have too many calendars.</p>
+            <p>
+              iCloud, CalDAV, Google and <code>.ics</code> feeds in one place. Its
+              Ribbon view draws time as one continuous strip, so a three-week trip
+              is one bar instead of three fragments, and calendar sets on the
+              number keys switch between twenty calendars in a keystroke.
+              Reminders land on your desktop, on your phone, or ring it.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="stream icon"></i>The Ribbon</span>
+              <span class="landing-chip"><i class="layer group icon"></i>Calendar sets</span>
+              <span class="landing-chip"><i class="bell icon"></i>Reminders by call</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meercal.com" target="_blank" rel="noopener"><i class="globe icon"></i>meercal.com</a>
+              <a href="https://github.com/ribalba/meercal" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meercal</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="landing-card landing-app">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meerail.webp" width="167" height="192" alt="" />
+              <div>
+                <span class="landing-app-kind">Mail</span>
+                <h3>meerail</h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">A mail client built for hardcore users.</p>
+            <p>
+              Syncs any IMAP account, Proton Mail through Bridge included, into
+              PostgreSQL in both directions, and searches all of it with regular
+              expressions: the text inside PDF and Office attachments and scanned
+              images too. A three-pane client with full keyboard control, and
+              optional AI with the model of your choice, local ones included.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="search icon"></i>Regex search</span>
+              <span class="landing-chip"><i class="paperclip icon"></i>Attachment text</span>
+              <span class="landing-chip"><i class="shield alternate icon"></i>Proton Mail Bridge</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meerail.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerail.com</a>
+              <a href="https://github.com/ribalba/meerail" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerail</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="landing-card landing-app">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meerato.webp" width="140" height="192" alt="" />
+              <div>
+                <span class="landing-app-kind">Tasks</span>
+                <h3>meerato</h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">A to-do list modeled on your life.</p>
+            <p>
+              Buckets for every part of your life, statuses instead of deadlines,
+              and tasks that land on today's list on the day they should. Share a
+              task with a link, or add someone's email and they are kept in the
+              loop without an account. Works offline and installs on your phone.
+              Use the hosted service, or run it yourself.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="folder open outline icon"></i>Buckets</span>
+              <span class="landing-chip"><i class="hourglass half icon"></i>Statuses, not deadlines</span>
+              <span class="landing-chip"><i class="share alternate icon"></i>Shared tasks</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meerato.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerato.com</a>
+              <a href="https://github.com/ribalba/meerato" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerato</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="landing-card landing-app">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meerpic.webp" width="192" height="175" alt="" />
+              <div>
+                <span class="landing-app-kind">Photos</span>
+                <h3>meerpic <span class="landing-badge">New</span></h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">A photo manager for libraries too big for a photo app.</p>
+            <p>
+              Made for collections of many gigabytes and tens of thousands of
+              files, in as many folders as you keep them. It reads each file's
+              own date and place into PostgreSQL, so everything sorts by when it
+              was taken, sits on a map, and is found by what is in it: type
+              <em>cows</em> and you get cows, with the model running on your
+              machine. Indexing goes newest first, so last week is browsable
+              within a minute while the rest fills in behind. iCloud Photos is one
+              sync button away.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="hdd outline icon"></i>Multi-GB libraries</span>
+              <span class="landing-chip"><i class="search icon"></i>Search by meaning</span>
+              <span class="landing-chip"><i class="map outline icon"></i>A map of your photos</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meerpic.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerpic.com</a>
+              <a href="https://github.com/ribalba/meerpic" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerpic</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- One wide screenshot per app, as a tour. The controls are built by the
+           script, so with JS off this degrades to the first screenshot. -->
+      <div class="landing-slider" data-slider aria-roledescription="carousel"
+           aria-label="Screenshots of the meer* apps">
+        <div class="landing-slider-viewport">
+          <ul class="landing-slider-track" data-slider-track>
+
+            <li class="landing-slide" data-label="meercal"
+                data-note="meercal's Ribbon: days run down the page without wrapping, and a long event is one unbroken bar in the rail beside them.">
+              <button type="button" class="landing-shot-btn"
+                      data-full="/img/screenshots/meercal-ribbon.webp"
+                      data-full-dark="/img/screenshots/meercal-ribbon-dark.webp"
+                      data-caption="&lt;strong&gt;meercal, the Ribbon.&lt;/strong&gt; Days run down the page without wrapping; long events are unbroken bars in the rail on the left, each labelled with where you are inside it. Quiet days collapse to one line, and calendar sets sit in the sidebar on their number keys.">
+                <picture>
+                  <source srcset="/img/screenshots/meercal-ribbon-dark.webp" media="(prefers-color-scheme: dark)" />
+                  <img src="/img/screenshots/meercal-ribbon.webp" width="2880" height="1800" decoding="async"
+                       alt="The meercal Ribbon view: a sidebar of calendars and sets, a rail of continuous coloured bars for multi-week events, and a column of day rows with event pills." />
+                </picture>
+                <span class="landing-shot-zoom"><i class="expand icon"></i></span>
+              </button>
+            </li>
+
+            <li class="landing-slide" data-label="meerail"
+                data-note="meerail's three-pane inbox across every account, with a search box that takes regular expressions and reads attachments.">
+              <button type="button" class="landing-shot-btn"
+                      data-full="/img/screenshots/meerail-inbox.webp"
+                      data-full-dark="/img/screenshots/meerail-inbox-dark.webp"
+                      data-caption="&lt;strong&gt;meerail, All Inboxes.&lt;/strong&gt; Two accounts in one unified inbox, threads with their reply counts, and a search box with a Regex switch that searches attachment text as well as the mail. The shortcuts in the sidebar are the ones the keys are bound to.">
+                <picture>
+                  <source srcset="/img/screenshots/meerail-inbox-dark.webp" media="(prefers-color-scheme: dark)" />
+                  <img src="/img/screenshots/meerail-inbox.webp" width="2880" height="1800" loading="lazy" decoding="async"
+                       alt="The meerail three-pane window: accounts and folders on the left, a message list in the middle, and an open mail with a PDF attachment on the right." />
+                </picture>
+                <span class="landing-shot-zoom"><i class="expand icon"></i></span>
+              </button>
+            </li>
+
+            <li class="landing-slide" data-label="meerato"
+                data-note="meerato's task list: buckets down the side, and every task with its status and bucket at a glance, subtasks under their parent.">
+              <button type="button" class="landing-shot-btn"
+                      data-full="/img/screenshots/meerato-overview.webp"
+                      data-caption="&lt;strong&gt;meerato, all tasks.&lt;/strong&gt; Buckets for work, home, the sports club and the kids' school down the side; every task with its status and bucket, subtasks nested under their parent, and a quick-add bar that takes a whole task in one line.">
+                <img src="/img/screenshots/meerato-overview.webp" width="1355" height="847" loading="lazy" decoding="async"
+                     alt="The meerato task list: status and bucket filters in the sidebar, and a list of tasks with nested subtasks, each tagged with a status and a bucket." />
+                <span class="landing-shot-zoom"><i class="expand icon"></i></span>
+              </button>
+            </li>
+
+          </ul>
+          <button type="button" class="landing-slider-arrow landing-slider-prev"
+                  data-slider-prev aria-label="Previous screenshot">
+            <i class="chevron left icon"></i>
+          </button>
+          <button type="button" class="landing-slider-arrow landing-slider-next"
+                  data-slider-next aria-label="Next screenshot">
+            <i class="chevron right icon"></i>
+          </button>
+        </div>
+        <p class="landing-slider-note" data-slider-note>
+          meercal's Ribbon: days run down the page without wrapping, and a long
+          event is one unbroken bar in the rail beside them.
+        </p>
+        <div class="landing-slider-tabs" data-slider-tabs role="group" aria-label="Choose a screenshot"></div>
+      </div>
+    </section>
+
+    <!-- How the apps use each other -->
+    <section id="together" class="landing-features">
+      <h2 class="landing-section-title">Better together</h2>
+      <p class="landing-section-lede">
+        They are separate programs with separate databases, and none of them
+        needs another to work. Where one knows something the next can use, it
+        hands it over.
+      </p>
+
+      <div class="landing-grid">
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-flow">
+              <img src="/img/apps/meerail.webp" width="167" height="192" alt="meerail" />
+              <i class="long arrow alternate right icon"></i>
+              <img src="/img/apps/meercal.webp" width="155" height="192" alt="meercal" />
+            </div>
+            <h3>Invite the people you write to</h3>
+            <p>
+              Point meercal at a meerail database and the attendee field
+              autocompletes from the people you actually correspond with, ranked
+              by how often. Read-only: meercal never writes to your mail.
+            </p>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-flow">
+              <img src="/img/apps/meerail.webp" width="167" height="192" alt="meerail" />
+              <i class="long arrow alternate right icon"></i>
+              <img src="/img/apps/meerato.webp" width="140" height="192" alt="meerato" />
+            </div>
+            <h3>File a mail as a task</h3>
+            <p>
+              A mail that is really a job goes to meerato as a task, attachments
+              and all, so the thing to do and the thread it came from stay
+              together instead of living in two places.
+            </p>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-flow">
+              <img src="/img/apps/meerpic.webp" width="192" height="175" alt="meerpic" />
+              <i class="long arrow alternate right icon"></i>
+              <img src="/img/apps/meerail.webp" width="167" height="192" alt="meerail" />
+            </div>
+            <h3>Drag a photo into a mail</h3>
+            <p>
+              Drag a picture out of meerpic straight into a mail, meerail's or
+              any other, and it arrives as a JPEG even when the phone wrote HEIC,
+              so the person on the other end can actually open it.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- What the family has in common -->
+    <section id="family" class="landing-features">
+      <h2 class="landing-section-title">Built the same way</h2>
+      <p class="landing-section-lede">
+        Different jobs, one set of convictions. Learn one of them and the next
+        already feels familiar.
+      </p>
+
+      <div class="landing-grid">
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-card-icon"><i class="database icon"></i></div>
+            <h3>Postgres as the store, not a cache</h3>
+            <p>
+              Mail, events, tasks and photo metadata live in a real PostgreSQL
+              database rather than a format of the app's own. <code>psql</code>
+              can answer questions no app exposes, and so can an AI tool you
+              point at it.
+            </p>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-card-icon"><i class="shield alternate icon"></i></div>
+            <h3>Your passwords stay home</h3>
+            <p>
+              meerail, meercal and meerpic split in two: an
+              <strong>agent</strong> that does the fetching and holds the
+              credentials, and a <strong>web app</strong> that only reads the
+              database. They share nothing but Postgres, so the web app has no
+              code path that could send a password anywhere.
+            </p>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-card-icon"><i class="filter icon"></i></div>
+            <h3>One filter language</h3>
+            <p>
+              Words are ANDed, and the filters are the nouns of the app. Learn it
+              in one and you can already type it in the next.
+            </p>
+            <div class="landing-rows">
+              <span class="landing-row"><i class="search icon"></i><code>invoice.*2024 :has-attachment</code><span class="landing-row-app">meerail</span></span>
+              <span class="landing-row"><i class="search icon"></i><code>cal:family with:anna is:span</code><span class="landing-row-app">meercal</span></span>
+              <span class="landing-row"><i class="search icon"></i><code>in:potsdam is:video 2024</code><span class="landing-row-app">meerpic</span></span>
+            </div>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-card-icon"><i class="keyboard icon"></i></div>
+            <h3>Keyboard first</h3>
+            <p>
+              meerail, meercal and meerpic run entirely from the keyboard, with
+              the cheat sheet on screen and generated from the same table that
+              binds the keys, so it cannot drift from what they do.
+            </p>
+            <div class="landing-keys">
+              <span class="landing-key">/</span>
+              <span class="landing-key">j</span>
+              <span class="landing-key">k</span>
+              <span class="landing-key">t</span>
+              <span class="landing-key">1</span>
+              <span class="landing-key">2</span>
+              <span class="landing-key">3</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-card-icon"><i class="desktop icon"></i></div>
+            <h3>In a browser or on the desktop</h3>
+            <p>
+              Each app is a web page first, laid out for a phone as well as a
+              monitor, and each ships the same small Electron shell for a window
+              of its own. Light and dark, following your system or pinned.
+            </p>
+          </div>
+        </article>
+
+        <article class="landing-card">
+          <div class="landing-card-body">
+            <div class="landing-card-icon"><i class="code branch icon"></i></div>
+            <h3>Open source, yours to run</h3>
+            <p>
+              All of it is AGPL and on GitHub, and the install is Docker Compose:
+              for meerail and meercal, one script that asks what it needs and
+              pulls the published images. meerato is also a hosted service, if
+              you would rather not run anything at all.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- On the way -->
+    <section id="soon" class="landing-features">
+      <h2 class="landing-section-title">Coming soon</h2>
+      <p class="landing-section-lede">
+        Two more meerkats are on their way.
+      </p>
+
+      <div class="landing-apps">
+        <article class="landing-card landing-app is-soon">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meerink.webp" width="192" height="191" alt="" />
+              <div>
+                <span class="landing-app-kind">Professional network</span>
+                <h3>meerink <span class="landing-badge is-soon">Coming soon</span></h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">The professional network where you decide which of you is speaking.</p>
+            <p>
+              LinkedIn's job, done by many small servers instead of one large
+              company. One login carries several profiles: the one your employer
+              hosts, the one you host yourself, the one for the club you
+              volunteer at. Every post says which of them is speaking, and to
+              whom, before you press the button.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="sitemap icon"></i>Federated</span>
+              <span class="landing-chip"><i class="users icon"></i>Several profiles, one login</span>
+              <span class="landing-chip"><i class="sort amount down icon"></i>A feed order you choose</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meerink.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerink.com</a>
+              <a href="https://github.com/ribalba/meerink" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerink</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="landing-card landing-app is-soon">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meerpad.webp" width="192" height="187" alt="" />
+              <div>
+                <span class="landing-app-kind">Writing</span>
+                <h3>meerpad <span class="landing-badge is-soon">Coming soon</span></h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">The writing tool you always wanted.</p>
+            <p>
+              For the quick note, the long document and everything in between,
+              in one place. It comes from the family that keeps your words in a
+              database you can query and lets you do everything from the
+              keyboard.
+            </p>
+            <div class="landing-app-links">
+              <a href="https://meerpad.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerpad.com</a>
+              <a href="https://github.com/ribalba/meerpad" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerpad</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      <p>
+        <strong>meerverse</strong> is the meer* universe: a family of
+        open-source meerkats for mail, calendars, tasks and photos, with a
+        network and a writing tool on the way.
+      </p>
+      <p class="landing-footer-apps">
+        <a href="https://meercal.com" target="_blank" rel="noopener"><img src="/img/apps/meercal.webp" width="155" height="192" alt="" />meercal</a>
+        <a href="https://meerail.com" target="_blank" rel="noopener"><img src="/img/apps/meerail.webp" width="167" height="192" alt="" />meerail</a>
+        <a href="https://meerato.com" target="_blank" rel="noopener"><img src="/img/apps/meerato.webp" width="140" height="192" alt="" />meerato</a>
+        <a href="https://meerpic.com" target="_blank" rel="noopener"><img src="/img/apps/meerpic.webp" width="192" height="175" alt="" />meerpic</a>
+        <a href="https://meerink.com" target="_blank" rel="noopener"><img src="/img/apps/meerink.webp" width="192" height="191" alt="" />meerink</a>
+        <a href="https://meerpad.com" target="_blank" rel="noopener"><img src="/img/apps/meerpad.webp" width="192" height="187" alt="" />meerpad</a>
+      </p>
+      <p>
+        <a href="https://github.com/ribalba/meerverse" target="_blank" rel="noopener">
+          <i class="github icon"></i>Open source
+        </a>
+      </p>
+    </footer>
+
+  </div>
+
+    <!-- Screenshot lightbox. Hidden until a thumbnail is clicked. -->
+  <div class="landing-lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot">
+    <button type="button" class="landing-lightbox-close" id="lightbox-close" aria-label="Close">
+      <i class="times icon"></i>
+    </button>
+    <figure class="landing-lightbox-figure">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    // Screenshot slider in the Ribbon section. The markup is a plain list of
+    // shots; everything that makes it a slider (arrows, tabs, the moving
+    // track) is switched on from here, so JS off leaves one wide screenshot.
+    (function () {
+      var slider = document.querySelector('[data-slider]');
+      if (!slider) return;
+      var track = slider.querySelector('[data-slider-track]');
+      var slides = Array.prototype.slice.call(track.children);
+      if (slides.length < 2) return;
+      var note = slider.querySelector('[data-slider-note]');
+      var tabBar = slider.querySelector('[data-slider-tabs]');
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var DWELL = 6500;
+      var index = 0;
+      var timer = null;
+      var manual = false;   // once the reader steers, it stops steering itself
+
+      // Tabs are built rather than written out: without this script they'd be
+      // six buttons that do nothing.
+      var tabs = slides.map(function (slide, i) {
+        var tab = document.createElement('button');
+        tab.type = 'button';
+        tab.className = 'landing-slider-tab';
+        tab.textContent = slide.dataset.label || String(i + 1);
+        tab.addEventListener('click', function () { stop(); go(i); });
+        tabBar.appendChild(tab);
+        return tab;
+      });
+
+      // Off-screen slides are lazy, so warm the neighbours before they are
+      // asked for. Otherwise the first look at each is a blank frame.
+      function warm(i) {
+        var img = slides[(i + slides.length) % slides.length].querySelector('img');
+        if (img) img.loading = 'eager';
+      }
+
+      function go(i) {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = 'translateX(' + (-100 * index) + '%)';
+        if (note) note.textContent = slides[index].dataset.note || '';
+        slides.forEach(function (slide, n) {
+          var off = n !== index;
+          slide.setAttribute('aria-hidden', off ? 'true' : 'false');
+          var btn = slide.querySelector('button');
+          if (btn) btn.tabIndex = off ? -1 : 0;
+        });
+        tabs.forEach(function (tab, n) {
+          if (n === index) tab.setAttribute('aria-current', 'true');
+          else tab.removeAttribute('aria-current');
+        });
+        warm(index + 1);
+        warm(index - 1);
+      }
+
+      function play() { if (!manual && !still.matches && timer === null) timer = setInterval(function () { go(index + 1); }, DWELL); }
+      function pause() { clearInterval(timer); timer = null; }
+      function stop() { manual = true; pause(); }
+
+      slider.querySelector('[data-slider-prev]').addEventListener('click', function () { stop(); go(index - 1); });
+      slider.querySelector('[data-slider-next]').addEventListener('click', function () { stop(); go(index + 1); });
+      // Opening a shot full size counts as steering, and the lightbox covers
+      // the slider anyway.
+      slides.forEach(function (slide) {
+        var btn = slide.querySelector('.landing-shot-btn');
+        if (btn) btn.addEventListener('click', stop);
+      });
+
+      slider.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        stop();
+        go(index + (e.key === 'ArrowRight' ? 1 : -1));
+      });
+
+      // Swipe. A horizontal drag that lands on a shot would otherwise also
+      // count as a click on it, so the click after one is swallowed.
+      var startX = null;
+      var swiped = false;
+      slider.addEventListener('pointerdown', function (e) { startX = e.clientX; swiped = false; });
+      slider.addEventListener('pointerup', function (e) {
+        if (startX === null) return;
+        var dx = e.clientX - startX;
+        startX = null;
+        if (Math.abs(dx) < 40) return;
+        swiped = true;
+        stop();
+        go(index + (dx < 0 ? 1 : -1));
+      });
+      slider.addEventListener('pointercancel', function () { startX = null; });
+      slider.addEventListener('click', function (e) {
+        if (!swiped) return;
+        swiped = false;
+        e.preventDefault();
+        e.stopPropagation();
+      }, true);
+
+      slider.addEventListener('mouseenter', pause);
+      slider.addEventListener('mouseleave', play);
+      slider.addEventListener('focusin', pause);
+      slider.addEventListener('focusout', play);
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) pause(); else play();
+      });
+
+      slider.classList.add('is-ready');
+      go(0);
+      play();
+    })();
+  </script>
+
+  <script>
+    // Screenshot lightbox: thumbnails carry the full-size source and the long
+    // caption, so the markup stays readable and nothing loads until it's asked for.
+    (function () {
+      var box = document.getElementById('lightbox');
+      var img = document.getElementById('lightbox-img');
+      var cap = document.getElementById('lightbox-caption');
+      var closeBtn = document.getElementById('lightbox-close');
+      var lastFocused = null;
+      var dark = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function open(btn) {
+        var full = btn.dataset.full;
+        // Some shots ship a dark variant; match what the thumbnail is showing.
+        if (btn.dataset.fullDark && dark.matches) full = btn.dataset.fullDark;
+        var thumb = btn.querySelector('img');
+        lastFocused = btn;
+        img.src = full;
+        img.alt = thumb ? thumb.alt : '';
+        cap.innerHTML = btn.dataset.caption || '';
+        box.hidden = false;
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+
+      function close() {
+        box.hidden = true;
+        img.src = '';
+        document.body.style.overflow = '';
+        if (lastFocused) lastFocused.focus();
+      }
+
+      document.querySelectorAll('.landing-shot-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { open(btn); });
+      });
+      closeBtn.addEventListener('click', close);
+      // Clicking the backdrop closes; clicking the image itself does not.
+      box.addEventListener('click', function (e) {
+        if (e.target === box || e.target.tagName === 'FIGURE') close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !box.hidden) close();
+      });
+    })();
+  </script>
+</body>
+</html>

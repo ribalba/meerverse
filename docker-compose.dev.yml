@@ -1,0 +1,12 @@
+# Local preview, layered over docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+#
+# Publishes the site on http://127.0.0.1:8082 (8080 is meerail's website and
+# 8081 meercal's, so all three can run side by side) and serves public/ from
+# the working tree, so an edit is a browser reload away.
+services:
+  website:
+    ports:
+      - "127.0.0.1:${WEBSITE_PORT:-8082}:80"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro

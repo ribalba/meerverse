@@ -1,0 +1,33 @@
+# meerverse
+
+> meerverse is the family page for the meer* apps: free, open-source (AGPL-3.0) programs for mail, calendars, tasks and photos, built for people whose accounts, calendars and libraries have outgrown the defaults. Each app keeps its data in a PostgreSQL database you can query yourself, each has its own website and GitHub repository, and each works on its own. Where one app knows something another can use, they share it.
+
+- Website: https://meerverse.com/
+- Source of this page: https://github.com/ribalba/meerverse
+- All projects: https://github.com/ribalba
+
+## The apps
+
+- [meercal](https://meercal.com/): a self-hosted calendar client for people with many calendars. It reads iCloud, any CalDAV server, Google and `.ics` feeds into PostgreSQL. Its Ribbon view draws time as one continuous strip, so a multi-week event is one unbroken bar. Calendar sets switch with number keys, a filter bar understands `cal:`, `with:` and `is:` filters, and reminders can arrive on the desktop, as a phone push or as a phone call. Source: https://github.com/ribalba/meercal
+- [meerail](https://meerail.com/): a self-hosted email client for power users. It syncs any IMAP/SMTP account, Proton Mail through Proton Mail Bridge included, into PostgreSQL in both directions, and offers regex and keyword search over all mail including text extracted from PDF and Office attachments and OCR'd images. Three-pane interface, full keyboard control, optional bring-your-own-model AI (Claude, OpenAI or a local Ollama). Source: https://github.com/ribalba/meerail
+- [meerato](https://meerato.com/): a to-do app organised by the parts of your life. Tasks live in buckets, carry a status (Now, Backlog, Blocked, Done) instead of a deadline, nest subtasks, and can be shared by link or with email watchers who need no account. Offline-capable and installable as a PWA. Available as a hosted service at meerato.com or self-hosted. Source: https://github.com/ribalba/meerato
+- [meerpic](https://meerpic.com/): a self-hosted photo manager for large collections: libraries of many gigabytes and tens of thousands of files, in any number of folders. It reads each file's own capture time and location into PostgreSQL, indexes newest first so recent photos are browsable within a minute, puts photos on a map, converts HEVC videos so they play in any browser, pairs Live Photos, and searches by what is in a picture using a SigLIP 2 model that runs locally. Nothing is ever written to a photo. Syncing an iCloud Photos library in through rclone is built in, as one source among others. Source: https://github.com/ribalba/meerpic
+
+## Coming soon
+
+- [meerink](https://meerink.com/): a federated professional network. One login carries several profiles hosted on different instances (for example one run by your employer and one you host yourself), and every post says which profile is speaking and to whom. Source: https://github.com/ribalba/meerink
+- [meerpad](https://meerpad.com/): the writing tool you always wanted, for quick notes, long documents and everything in between. Source: https://github.com/ribalba/meerpad
+
+## What the apps share
+
+- PostgreSQL is the store, not a cache: the data is queryable with `psql` and by AI tools.
+- meerail, meercal and meerpic split into an agent that holds credentials and does the fetching, and a web app that only reads the database.
+- One filter language across apps, for example `invoice.*2024 :has-attachment` in meerail, `cal:family with:anna is:span` in meercal and `in:potsdam is:video 2024` in meerpic.
+- Keyboard-first interfaces, light and dark themes, layouts for phones, and an optional Electron desktop app.
+- Installed with Docker Compose. meerail and meercal have one-script installers.
+
+## How they connect
+
+- meercal can read meerail's address book to autocomplete event attendees (read-only).
+- meerail can file a mail as a meerato task, attachments included.
+- meerpic hands a photo dragged into a mail over as a JPEG, even when the original is HEIC.

@@ -1,0 +1,4 @@
+# The image needs the nginx config and the site, nothing else.
+*
+!nginx.conf
+!public
