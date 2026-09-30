@@ -10,7 +10,7 @@ shows the whole family in one place.
 | meerato | Tasks | [meerato.com](https://meerato.com) | [ribalba/meerato](https://github.com/ribalba/meerato) |
 | meerpic | Photos | [meerpic.com](https://meerpic.com) | [ribalba/meerpic](https://github.com/ribalba/meerpic) |
 | meerink | Professional network (coming soon) | [meerink.com](https://meerink.com) | [ribalba/meerink](https://github.com/ribalba/meerink) |
-| meerpad | Writing (coming soon) | [meerpad.com](https://meerpad.com) | [ribalba/meerpad](https://github.com/ribalba/meerpad) |
+| meerpad | Notes | [meerpad.com](https://meerpad.com) | [ribalba/meerpad](https://github.com/ribalba/meerpad) |
 
 A static page, a stylesheet and some images, served by nginx. Nothing to
 build.
@@ -67,7 +67,7 @@ meercal's too, copied unchanged.
 
 Every picture on the page belongs to one of the apps. `tools/build_assets.py`
 pulls the logos and screenshots in from sibling checkouts (`../meercal`,
-`../meerail`, `../meerato`, `../meeroto`, `../meerink`) and writes WebP into
+`../meerail`, `../meerato`, `../meerpic`, `../meerink`, `../meerpad`) and writes WebP into
 `public/img/`:
 
 ```bash
@@ -75,13 +75,12 @@ python3 tools/build_assets.py      # needs Pillow
 ```
 
 Two of them are stand-ins until meerverse has artwork of its own: the hero
-(`img/family.webp`, the four shipping apps' meerkats composed into one group)
+(`img/family.webp`, the five shipping apps' meerkats composed into one group)
 and the brand mark and favicons (`img/brand*`, meerato's waving meerkat).
 
-meerpad has no checkout yet, so its logo source is kept here in
-`assets/meerpad.png` (trimmed to 512px, with the stray almost-transparent
-pixels around the edge cleared). Once a meerpad repo exists, point `LOGOS` in
-the script at it and delete the copy.
+meerpad's logo and screenshot now come from its own checkout like the others
+(`../meerpad/app/static/img/`). `assets/meerpad.png`, which stood in while there
+was no meerpad repo, is no longer read by anything.
 
 `public/llms.txt` is the same content in plain text for language models, and
 the page carries it again as schema.org data. Keep the three in step.

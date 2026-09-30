@@ -3,8 +3,9 @@
 
 The meerverse site owns no artwork of its own yet: every logo and screenshot
 belongs to one of the apps, and this pulls them in from checkouts that sit next
-to this repo (../meercal, ../meerail, ../meerato, ../meeroto, ../meerink), so a
+to this repo (../meercal, ../meerail, ../meerato, ../meerpic, ../meerink), so a
 new logo or a re-shot screenshot there is one command away from being here.
+meerpad joined them (../meerpad).
 
     python3 tools/build_assets.py
 
@@ -29,15 +30,14 @@ OUT = ROOT / "public" / "img"
 # Which picture stands for each app: the small in-app logo, the meerkat peeking
 # over the thing the app is about, not the full-body one some websites use in
 # their hero. meerink's logo-square sits on a coloured tile, so its plain logo
-# is used instead. meerpad has no checkout to take its logo from yet, so its
-# source lives in this repo (an absolute path wins over CODE when joined).
+# is used instead.
 LOGOS = {
     "meercal": "meercal/website/public/img/logo-square.png",
     "meerail": "meerail/app/static/img/logo-square.png",
     "meerato": "meerato/app/static/logo-512.png",
-    "meerpic": "meeroto/app/static/img/logo.png",
+    "meerpic": "meerpic/app/static/img/logo.png",
     "meerink": "meerink/app/static/img/logo.png",
-    "meerpad": ROOT / "assets" / "meerpad.png",
+    "meerpad": "meerpad/app/static/img/logo.png",
 }
 
 # (output name, source, dark source or None). Screenshots are 2880x1800 in the
@@ -47,6 +47,8 @@ SHOTS = [
      "meercal/website/public/img/screenshots/ribbon-dark.png"),
     ("meerail-inbox", "meerail/website/public/img/screenshots/inbox.png",
      "meerail/website/public/img/screenshots/inbox-dark.png"),
+    ("meerpad-page", "meerpad/app/static/img/screenshots/page.png",
+     "meerpad/app/static/img/screenshots/page-dark.png"),
 ]
 MEERATO_SHOT = "meerato/app/static/img/screenshots/overview.webp"
 
@@ -88,18 +90,21 @@ def app_logos() -> None:
 
 
 def family() -> Image.Image:
-    """The four shipping apps' meerkats as one group, for the hero: two
-    staggered pairs, calendar and mail above, photos and tasks below."""
+    """The five shipping apps' meerkats as one group, for the hero: calendar and
+    mail above, photos and tasks below, and meerpad's in the middle, drawn last
+    so it sits in front. Sized and placed so no two of them touch."""
     w, h = 680, 640
     canvas = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    cal = fit_height(load(LOGOS["meercal"]), 300)
-    mail = fit_height(load(LOGOS["meerail"]), 270)
-    pic = fit_height(load(LOGOS["meerpic"]), 265)
-    todo = fit_height(load(LOGOS["meerato"]), 295)
-    canvas.alpha_composite(cal, (45, 10))
-    canvas.alpha_composite(mail, (w - mail.width - 20, 45))
-    canvas.alpha_composite(pic, (15, h - pic.height - 12))
-    canvas.alpha_composite(todo, (w - todo.width - 70, h - todo.height - 2))
+    cal = fit_height(load(LOGOS["meercal"]), 225)
+    mail = fit_height(load(LOGOS["meerail"]), 200)
+    pic = fit_height(load(LOGOS["meerpic"]), 200)
+    todo = fit_height(load(LOGOS["meerato"]), 222)
+    pad = fit_height(load(LOGOS["meerpad"]), 212)
+    canvas.alpha_composite(cal, (18, 4))
+    canvas.alpha_composite(mail, (w - mail.width - 12, 36))
+    canvas.alpha_composite(pic, (8, h - pic.height - 24))
+    canvas.alpha_composite(todo, (w - todo.width - 34, h - todo.height - 4))
+    canvas.alpha_composite(pad, ((w - pad.width) // 2 + 4, (h - pad.height) // 2 + 6))
     save_webp(canvas, OUT / "family.webp", quality=88)
     return canvas
 

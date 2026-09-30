@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>meerverse: tools for people who have too much of everything</title>
-  <meta name="description" content="meerverse is the meer* family of open-source, self-hostable apps: meercal for calendars, meerail for mail, meerato for tasks and meerpic for photos, each keeping your data in PostgreSQL. meerink and meerpad are on the way." />
+  <meta name="description" content="meerverse is the meer* family of open-source, self-hostable apps: meercal for calendars, meerail for mail, meerato for tasks, meerpic for photos and meerpad for notes, each keeping your data in PostgreSQL. meerink is on the way." />
   <meta name="theme-color" content="#2185d0" />
   <link rel="canonical" href="https://meerverse.com/" />
   <link rel="icon" type="image/png" sizes="32x32" href="/img/brand-32.png" />
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="meerverse" />
   <meta property="og:url" content="https://meerverse.com/" />
   <meta property="og:title" content="meerverse: tools for people who have too much of everything" />
-  <meta property="og:description" content="Mail, calendar, tasks and photos from one family of open-source meerkats. Everything in PostgreSQL, everything on GitHub." />
+  <meta property="og:description" content="Mail, calendar, tasks, photos and notes from one family of open-source meerkats. Everything in PostgreSQL, everything on GitHub." />
   <meta property="og:image" content="https://meerverse.com/img/og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -89,6 +89,20 @@
           "license": "https://www.gnu.org/licenses/agpl-3.0.html",
           "sameAs": ["https://github.com/ribalba/meerpic"]
         }
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "meerpad",
+          "url": "https://meerpad.com/",
+          "description": "A notes app built for hardcore users with a lot of projects: a workspace per project, each a tree of pages built from blocks and databases, text written in meerail's Markdown, fast search across thousands of pages, offline-first sync across devices, share links to read or to edit, and publishing any page as a website on your own domain. Hosted at meerpad.com or self-hosted.",
+          "applicationCategory": "ProductivityApplication",
+          "isAccessibleForFree": true,
+          "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+          "sameAs": ["https://github.com/ribalba/meerpad"]
+        }
       }
     ]
   }
@@ -125,12 +139,13 @@
     <!-- Hero -->
     <section class="landing-hero">
       <img src="/img/family.webp" width="680" height="640" class="landing-logo is-family"
-           alt="Four cartoon meerkats: one peeking over a calendar, one over an envelope, one out of a picture frame and one over a checklist." />
+           alt="Five cartoon meerkats: one peeking over a calendar, one over an envelope, one out of a picture frame, one over a checklist and, in the middle, one holding a pencil in front of a page of notes." />
       <div class="landing-hero-copy">
         <h1 class="landing-title">Tools for people who have too much of&nbsp;everything.</h1>
         <p class="landing-subtitle">
           Twenty calendars, a mailbox ten years deep, a to-do list for every part
-          of your life and a photo library too big for any photo app. The meer* apps
+          of your life, a photo library too big for any photo app and notes in more
+          places than you can remember. The meer* apps
           are a family of open-source programs, one for each of those, built for
           the person the defaults stopped working for. Everything lands in
           PostgreSQL, where you can query it. Each app stands on its own, and
@@ -147,7 +162,7 @@
     <section id="apps" class="landing-features">
       <h2 class="landing-section-title">The apps</h2>
       <p class="landing-section-lede">
-        Four programs you can run today. Each has its own site and its own
+        Five programs you can run today. Each has its own site and its own
         repository, and all of them are open source under the AGPL.
       </p>
 
@@ -270,6 +285,39 @@
             </div>
           </div>
         </article>
+        <article class="landing-card landing-app">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meerpad.webp" width="192" height="187" alt="" />
+              <div>
+                <span class="landing-app-kind">Notes</span>
+                <h3>meerpad <span class="landing-badge">New</span></h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">A notes app built for hardcore users with a lot of projects.</p>
+            <p>
+              Made for people who write everything down, for every project they
+              run. Each project gets a workspace, each workspace a tree of pages
+              as deep as the work needs, and a page holds text, to-dos, tables,
+              files and whole databases, written in the same Markdown as meerail.
+              Thousands of pages stay fast and searchable, even offline: a copy of
+              all of it lives on your device and syncs when you are back. Share a
+              page by link to read or to edit, publish any page as a website on
+              your own domain or at <em>name</em>.meerpad.com, and bring an
+              existing workspace along from a Markdown and CSV export, databases
+              and files included.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="sitemap icon"></i>A workspace per project</span>
+              <span class="landing-chip"><i class="search icon"></i>Thousands of pages, searchable</span>
+              <span class="landing-chip"><i class="globe icon"></i>Publish as a website</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meerpad.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerpad.com</a>
+              <a href="https://github.com/ribalba/meerpad" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerpad</a>
+            </div>
+          </div>
+        </article>
       </div>
 
       <!-- One wide screenshot per app, as a tour. The controls are built by the
@@ -316,6 +364,21 @@
                       data-caption="&lt;strong&gt;meerato, all tasks.&lt;/strong&gt; Buckets for work, home, the sports club and the kids' school down the side; every task with its status and bucket, subtasks nested under their parent, and a quick-add bar that takes a whole task in one line.">
                 <img src="/img/screenshots/meerato-overview.webp" width="1355" height="847" loading="lazy" decoding="async"
                      alt="The meerato task list: status and bucket filters in the sidebar, and a list of tasks with nested subtasks, each tagged with a status and a bucket." />
+                <span class="landing-shot-zoom"><i class="expand icon"></i></span>
+              </button>
+            </li>
+
+            <li class="landing-slide" data-label="meerpad"
+                data-note="meerpad: a page of blocks in the Farm workspace, the page tree beside it and one search bar for every page and its text.">
+              <button type="button" class="landing-shot-btn"
+                      data-full="/img/screenshots/meerpad-page.webp"
+                      data-full-dark="/img/screenshots/meerpad-page-dark.webp"
+                      data-caption="&lt;strong&gt;meerpad, a page.&lt;/strong&gt; Workspaces for work, the house and the farm, each a tree of pages; a page of blocks with to-dos, a callout, Markdown written as you type it and a highlighted code block, and one search bar across the top for every page and its text.">
+                <picture>
+                  <source srcset="/img/screenshots/meerpad-page-dark.webp" media="(prefers-color-scheme: dark)" />
+                  <img src="/img/screenshots/meerpad-page.webp" width="2880" height="1800" loading="lazy" decoding="async"
+                       alt="The meerpad window: workspaces and a page tree in the sidebar, and a page with a cover, a heading, to-dos, a callout and a code block." />
+                </picture>
                 <span class="landing-shot-zoom"><i class="expand icon"></i></span>
               </button>
             </li>
@@ -412,7 +475,7 @@
             <div class="landing-card-icon"><i class="database icon"></i></div>
             <h3>Postgres as the store, not a cache</h3>
             <p>
-              Mail, events, tasks and photo metadata live in a real PostgreSQL
+              Mail, events, tasks, notes and photo metadata live in a real PostgreSQL
               database rather than a format of the app's own. <code>psql</code>
               can answer questions no app exposes, and so can an AI tool you
               point at it.
@@ -490,8 +553,8 @@
             <p>
               All of it is AGPL and on GitHub, and the install is Docker Compose:
               for meerail and meercal, one script that asks what it needs and
-              pulls the published images. meerato is also a hosted service, if
-              you would rather not run anything at all.
+              pulls the published images. meerato and meerpad are also hosted
+              services, if you would rather not run anything at all.
             </p>
           </div>
         </article>
@@ -502,7 +565,7 @@
     <section id="soon" class="landing-features">
       <h2 class="landing-section-title">Coming soon</h2>
       <p class="landing-section-lede">
-        Two more meerkats are on their way.
+        One more meerkat is on its way.
       </p>
 
       <div class="landing-apps">
@@ -534,37 +597,14 @@
             </div>
           </div>
         </article>
-
-        <article class="landing-card landing-app is-soon">
-          <div class="landing-card-body">
-            <div class="landing-app-head">
-              <img class="landing-app-logo" src="/img/apps/meerpad.webp" width="192" height="187" alt="" />
-              <div>
-                <span class="landing-app-kind">Writing</span>
-                <h3>meerpad <span class="landing-badge is-soon">Coming soon</span></h3>
-              </div>
-            </div>
-            <p class="landing-app-tagline">The writing tool you always wanted.</p>
-            <p>
-              For the quick note, the long document and everything in between,
-              in one place. It comes from the family that keeps your words in a
-              database you can query and lets you do everything from the
-              keyboard.
-            </p>
-            <div class="landing-app-links">
-              <a href="https://meerpad.com" target="_blank" rel="noopener"><i class="globe icon"></i>meerpad.com</a>
-              <a href="https://github.com/ribalba/meerpad" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meerpad</a>
-            </div>
-          </div>
-        </article>
       </div>
     </section>
 
     <footer class="landing-footer">
       <p>
         <strong>meerverse</strong> is the meer* universe: a family of
-        open-source meerkats for mail, calendars, tasks and photos, with a
-        network and a writing tool on the way.
+        open-source meerkats for mail, calendars, tasks, photos and notes,
+        with a network on the way.
       </p>
       <p class="landing-footer-apps">
         <a href="https://meercal.com" target="_blank" rel="noopener"><img src="/img/apps/meercal.webp" width="155" height="192" alt="" />meercal</a>
