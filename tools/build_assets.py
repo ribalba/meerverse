@@ -47,6 +47,8 @@ SHOTS = [
      "meercal/website/public/img/screenshots/ribbon-dark.png"),
     ("meerail-inbox", "meerail/website/public/img/screenshots/inbox.png",
      "meerail/website/public/img/screenshots/inbox-dark.png"),
+    ("meerpic-grid", "meerpic/website/public/img/screenshots/grid.webp",
+     "meerpic/website/public/img/screenshots/grid-dark.webp"),
     ("meerpad-page", "meerpad/app/static/img/screenshots/page.png",
      "meerpad/app/static/img/screenshots/page-dark.png"),
 ]
