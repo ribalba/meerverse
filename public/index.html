@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>meerverse: tools for people who have too much of everything</title>
-  <meta name="description" content="meerverse is the meer* family of open-source, self-hostable apps: meercal for calendars, meerail for mail, meerato for tasks, meerpic for photos and meerpad for notes, each keeping your data in PostgreSQL. meerink is on the way." />
+  <meta name="description" content="meerverse is the meer* family of open-source, self-hostable apps: meercal for calendars, meerail for mail, meerato for tasks, meerpic for photos, meerpad for notes and meertex for papers, each keeping your data in PostgreSQL. meerink is on the way." />
   <meta name="theme-color" content="#2185d0" />
   <link rel="canonical" href="https://meerverse.com/" />
   <link rel="icon" type="image/png" sizes="32x32" href="/img/brand-32.png" />
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="meerverse" />
   <meta property="og:url" content="https://meerverse.com/" />
   <meta property="og:title" content="meerverse: tools for people who have too much of everything" />
-  <meta property="og:description" content="Mail, calendar, tasks, photos and notes from one family of open-source meerkats. Everything in PostgreSQL, everything on GitHub." />
+  <meta property="og:description" content="Mail, calendar, tasks, photos, notes and papers from one family of open-source meerkats. Everything in PostgreSQL, everything on GitHub." />
   <meta property="og:image" content="https://meerverse.com/img/og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -103,6 +103,20 @@
           "license": "https://www.gnu.org/licenses/agpl-3.0.html",
           "sameAs": ["https://github.com/ribalba/meerpad"]
         }
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "meertex",
+          "url": "https://meertex.com/",
+          "description": "A LaTeX workspace for papers and their coauthors: a sync client keeps a local folder in step with the server within a second, coauthors edit the same document in the browser with live cursors and a compiled PDF, and every paper carries its venue, its deadlines in the venue's time zone, fixed versions of what was handed in, GitHub-style reviews and a check of every reference against doi.org, Crossref and Semantic Scholar. Hosted at meertex.com or self-hosted.",
+          "applicationCategory": "ProductivityApplication",
+          "isAccessibleForFree": true,
+          "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+          "sameAs": ["https://github.com/ribalba/meertex"]
+        }
       }
     ]
   }
@@ -138,14 +152,15 @@
 
     <!-- Hero -->
     <section class="landing-hero">
-      <img src="/img/family.webp" width="680" height="640" class="landing-logo is-family"
-           alt="Five cartoon meerkats: one peeking over a calendar, one over an envelope, one out of a picture frame, one over a checklist and, in the middle, one holding a pencil in front of a page of notes." />
+      <img src="/img/family.webp" width="720" height="640" class="landing-logo is-family"
+           alt="Six cartoon meerkats: one peeking over a calendar, one over an envelope, one holding a pencil in front of a page of notes, one over a page of TeX, one out of a picture frame and one over a checklist." />
       <div class="landing-hero-copy">
         <h1 class="landing-title">Tools for people who have too much of&nbsp;everything.</h1>
         <p class="landing-subtitle">
           Twenty calendars, a mailbox ten years deep, a to-do list for every part
-          of your life, a photo library too big for any photo app and notes in more
-          places than you can remember. The meer* apps
+          of your life, a photo library too big for any photo app, notes in more
+          places than you can remember and papers whose coauthors never see the
+          latest version. The meer* apps
           are a family of open-source programs, one for each of those, built for
           the person the defaults stopped working for. Everything lands in
           PostgreSQL, where you can query it. Each app stands on its own, and
@@ -162,7 +177,7 @@
     <section id="apps" class="landing-features">
       <h2 class="landing-section-title">The apps</h2>
       <p class="landing-section-lede">
-        Five programs you can run today. Each has its own site and its own
+        Six programs you can run today. Each has its own site and its own
         repository, and all of them are open source under the AGPL.
       </p>
 
@@ -318,6 +333,37 @@
             </div>
           </div>
         </article>
+        <article class="landing-card landing-app">
+          <div class="landing-card-body">
+            <div class="landing-app-head">
+              <img class="landing-app-logo" src="/img/apps/meertex.webp" width="182" height="192" alt="" />
+              <div>
+                <span class="landing-app-kind">Papers</span>
+                <h3>meertex <span class="landing-badge">New</span></h3>
+              </div>
+            </div>
+            <p class="landing-app-tagline">A LaTeX workspace where coauthors see every save live.</p>
+            <p>
+              A paper is a normal folder on your computer, edited in VS Code, vim
+              or together with Claude, and every save reaches your coauthors
+              within a second. They write in the same document in the browser,
+              with live cursors and a PDF that compiles as they type. Each paper
+              knows its venue and its deadlines in the venue's time zone, keeps
+              the versions you handed in, and gets reviews that show how each
+              comment was addressed. Before you submit, it looks every reference
+              up and finds the citations that do not exist.
+            </p>
+            <div class="landing-chips">
+              <span class="landing-chip"><i class="sync alternate icon"></i>Your folder, live</span>
+              <span class="landing-chip"><i class="stopwatch icon"></i>Deadlines in AoE</span>
+              <span class="landing-chip"><i class="check double icon"></i>Reference check</span>
+            </div>
+            <div class="landing-app-links">
+              <a href="https://meertex.com" target="_blank" rel="noopener"><i class="globe icon"></i>meertex.com</a>
+              <a href="https://github.com/ribalba/meertex" target="_blank" rel="noopener"><i class="github icon"></i>ribalba/meertex</a>
+            </div>
+          </div>
+        </article>
       </div>
 
       <!-- One wide screenshot per app, as a tour. The controls are built by the
@@ -394,6 +440,17 @@
                   <img src="/img/screenshots/meerpad-page.webp" width="2880" height="1800" loading="lazy" decoding="async"
                        alt="The meerpad window: workspaces and a page tree in the sidebar, and a page with a cover, a heading, to-dos, a callout and a code block." />
                 </picture>
+                <span class="landing-shot-zoom"><i class="expand icon"></i></span>
+              </button>
+            </li>
+
+            <li class="landing-slide" data-label="meertex"
+                data-note="meertex's editor: a coauthor's cursor with a name tag, citation keys completed with their titles, and the PDF compiled a moment ago.">
+              <button type="button" class="landing-shot-btn"
+                      data-full="/img/screenshots/meertex-editor.webp"
+                      data-caption="&lt;strong&gt;meertex, the editor.&lt;/strong&gt; Lena writes the introduction while Tomás has the same file open. The &lt;code&gt;\cite&lt;/code&gt; completion lists every key of the paper's .bib with its title, and the PDF on the right compiled a moment ago.">
+                <img src="/img/screenshots/meertex-editor.webp" width="1920" height="1200" loading="lazy" decoding="async"
+                     alt="The meertex editor: the file tree, the introduction of a paper with a coauthor's cursor labelled Tomás Ibarra, a completion list of citation keys with their titles, and the compiled two-column PDF on the right." />
                 <span class="landing-shot-zoom"><i class="expand icon"></i></span>
               </button>
             </li>
@@ -568,8 +625,8 @@
             <p>
               All of it is AGPL and on GitHub, and the install is Docker Compose:
               for meerail and meercal, one script that asks what it needs and
-              pulls the published images. meerato and meerpad are also hosted
-              services, if you would rather not run anything at all.
+              pulls the published images. meerato, meerpad and meertex are also
+              hosted services, if you would rather not run anything at all.
             </p>
           </div>
         </article>
@@ -618,8 +675,8 @@
     <footer class="landing-footer">
       <p>
         <strong>meerverse</strong> is the meer* universe: a family of
-        open-source meerkats for mail, calendars, tasks, photos and notes,
-        with a network on the way.
+        open-source meerkats for mail, calendars, tasks, photos, notes and
+        papers, with a network on the way.
       </p>
       <p class="landing-footer-apps">
         <a href="https://meercal.com" target="_blank" rel="noopener"><img src="/img/apps/meercal.webp" width="155" height="192" alt="" />meercal</a>
@@ -628,6 +685,7 @@
         <a href="https://meerpic.com" target="_blank" rel="noopener"><img src="/img/apps/meerpic.webp" width="192" height="175" alt="" />meerpic</a>
         <a href="https://meerink.com" target="_blank" rel="noopener"><img src="/img/apps/meerink.webp" width="192" height="191" alt="" />meerink</a>
         <a href="https://meerpad.com" target="_blank" rel="noopener"><img src="/img/apps/meerpad.webp" width="192" height="187" alt="" />meerpad</a>
+        <a href="https://meertex.com" target="_blank" rel="noopener"><img src="/img/apps/meertex.webp" width="182" height="192" alt="" />meertex</a>
       </p>
       <p>
         <a href="https://github.com/ribalba/meerverse" target="_blank" rel="noopener">

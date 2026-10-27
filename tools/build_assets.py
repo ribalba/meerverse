@@ -5,7 +5,7 @@ The meerverse site owns no artwork of its own yet: every logo and screenshot
 belongs to one of the apps, and this pulls them in from checkouts that sit next
 to this repo (../meercal, ../meerail, ../meerato, ../meerpic, ../meerink), so a
 new logo or a re-shot screenshot there is one command away from being here.
-meerpad joined them (../meerpad).
+meerpad joined them (../meerpad), and then meertex (../meertex).
 
     python3 tools/build_assets.py
 
@@ -38,6 +38,7 @@ LOGOS = {
     "meerpic": "meerpic/app/static/img/logo.png",
     "meerink": "meerink/app/static/img/logo.png",
     "meerpad": "meerpad/app/static/img/logo.png",
+    "meertex": "meertex/app/static/img/logo-512.png",
 }
 
 # (output name, source, dark source or None). Screenshots are 2880x1800 in the
@@ -51,6 +52,8 @@ SHOTS = [
      "meerpic/website/public/img/screenshots/grid-dark.webp"),
     ("meerpad-page", "meerpad/app/static/img/screenshots/page.png",
      "meerpad/app/static/img/screenshots/page-dark.png"),
+    # meertex is light only, and its screenshots are 1920x1200, also 16:10.
+    ("meertex-editor", "meertex/app/static/img/screenshots/editor.webp", None),
 ]
 MEERATO_SHOT = "meerato/app/static/img/screenshots/overview.webp"
 
@@ -92,21 +95,23 @@ def app_logos() -> None:
 
 
 def family() -> Image.Image:
-    """The five shipping apps' meerkats as one group, for the hero: calendar and
-    mail above, photos and tasks below, and meerpad's in the middle, drawn last
-    so it sits in front. Sized and placed so no two of them touch."""
-    w, h = 680, 640
+    """The six shipping apps' meerkats as one group, for the hero, in three
+    staggered rows: calendar and mail above, notes and papers in the middle,
+    photos and tasks below. Sized and placed so no two of them touch."""
+    w, h = 720, 640
     canvas = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    cal = fit_height(load(LOGOS["meercal"]), 225)
-    mail = fit_height(load(LOGOS["meerail"]), 200)
-    pic = fit_height(load(LOGOS["meerpic"]), 200)
-    todo = fit_height(load(LOGOS["meerato"]), 222)
-    pad = fit_height(load(LOGOS["meerpad"]), 212)
-    canvas.alpha_composite(cal, (18, 4))
-    canvas.alpha_composite(mail, (w - mail.width - 12, 36))
-    canvas.alpha_composite(pic, (8, h - pic.height - 24))
-    canvas.alpha_composite(todo, (w - todo.width - 34, h - todo.height - 4))
-    canvas.alpha_composite(pad, ((w - pad.width) // 2 + 4, (h - pad.height) // 2 + 6))
+    cal = fit_height(load(LOGOS["meercal"]), 200)
+    mail = fit_height(load(LOGOS["meerail"]), 182)
+    pad = fit_height(load(LOGOS["meerpad"]), 200)
+    tex = fit_height(load(LOGOS["meertex"]), 192)
+    pic = fit_height(load(LOGOS["meerpic"]), 186)
+    todo = fit_height(load(LOGOS["meerato"]), 200)
+    canvas.alpha_composite(cal, (28, 4))
+    canvas.alpha_composite(mail, (w - mail.width - 26, 18))
+    canvas.alpha_composite(pad, (w // 2 - pad.width - 14, 222))
+    canvas.alpha_composite(tex, (w // 2 + 18, 228))
+    canvas.alpha_composite(pic, (16, h - pic.height - 8))
+    canvas.alpha_composite(todo, (w - todo.width - 40, h - todo.height))
     save_webp(canvas, OUT / "family.webp", quality=88)
     return canvas
 

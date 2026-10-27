@@ -895,6 +895,8 @@ html, body {
   justify-content: center;
   gap: .4rem 1.2rem;
 }
+/* Seven apps do not fit the 640px of a footer line. */
+.landing-footer .landing-footer-apps { max-width: 880px; }
 .landing-footer-apps a {
   display: inline-flex;
   align-items: center;

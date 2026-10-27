@@ -11,6 +11,7 @@ shows the whole family in one place.
 | meerpic | Photos | [meerpic.com](https://meerpic.com) | [ribalba/meerpic](https://github.com/ribalba/meerpic) |
 | meerink | Professional network (coming soon) | [meerink.com](https://meerink.com) | [ribalba/meerink](https://github.com/ribalba/meerink) |
 | meerpad | Notes | [meerpad.com](https://meerpad.com) | [ribalba/meerpad](https://github.com/ribalba/meerpad) |
+| meertex | Papers | [meertex.com](https://meertex.com) | [ribalba/meertex](https://github.com/ribalba/meertex) |
 
 A static page, a stylesheet and some images, served by nginx. Nothing to
 build.
